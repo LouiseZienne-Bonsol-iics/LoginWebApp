@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+    <context-param>
+        <param-name>header</param-name>
+        <param-value>Student Lounge</param-value>
+    </context-param>
+    <context-param>
+        <param-name>footer</param-name>
+        <param-value>Copyright 2020</param-value>
+    </context-param>
+    <context-param>
+            <param-name>jdbcClassName</param-name>
+            <param-value>org.apache.derby.jdbc.ClientDriver</param-value>
+    </context-param>
+
+    <context-param>
+            <param-name>dbUserName</param-name>
+            <param-value>app</param-value>
+    </context-param>
+
+    <context-param>
+            <param-name>dbPassword</param-name>
+            <param-value>app</param-value>
+    </context-param>
+
+    <context-param>
+            <param-name>jdbcDriverURL</param-name>
+            <param-value>jdbc:derby</param-value>
+    </context-param>
+
+    <context-param>
+            <param-name>dbHostName</param-name>
+            <param-value>localhost</param-value>
+    </context-param>
+
+    <context-param>
+            <param-name>dbPort</param-name>
+            <param-value>1527</param-value>
+    </context-param>
+    <context-param>
+            <param-name>databaseName</param-name>
+            <param-value>UserDB</param-value>
+    </context-param>
+    
+   <context-param>
+            <param-name>exceptStr</param-name>
+            <param-value>SELECT * FROM USERDB WHERE NOT USERNAME=?</param-value>
+   </context-param>   
+    
+    <listener>
+        <listener-class>
+            listener.MyServletContextListener
+        </listener-class>
+    </listener>
+    
+    <servlet>
+        <servlet-name>ServletOne</servlet-name>
+        <servlet-class>controller.ServletOne</servlet-class>
+        
+        <init-param>
+  		<param-name>queryStr</param-name>
+  		<param-value>SELECT * FROM UserDB WHERE USERNAME = ?</param-value>
+  	</init-param>
+        
+        <init-param>
+  		<param-name>insertStr</param-name>
+  		<param-value>INSERT INTO UserDB(USERNAME, PASSWORD, ROLES) VALUES(?,?,?)</param-value>
+  	</init-param>   
+        
+    </servlet>
+     <servlet>
+        <servlet-name>generatePDF</servlet-name>
+        <servlet-class>controller.generatePDF</servlet-class>
+     </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>ServletOne</servlet-name>
+        <url-pattern>/ServletOne</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>generatePDF</servlet-name>
+        <url-pattern>/generatePDF</url-pattern>
+    </servlet-mapping>
+    
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+</web-app>
